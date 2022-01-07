@@ -1,0 +1,22 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone') {
+            steps {
+                script {
+                    withCredentials([sshUserPrivateKey(credentialsId: 'deployer', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'jenkins')]) {
+                      def remote = [:]
+                      remote.name = "prod"
+                      remote.host = "192.168.0.11"
+                      remote.user = jenkins
+                      remote.identityFile = identity
+                      remote.allowAnyHosts = true
+
+                      sshCommand remote: remote, command: 'git clone https://github.com/salarmgh/devops-fundamentals.git /opt/app || cd /opt/app && git pull'
+                    }
+                }
+            }
+        }
+    }
+}
