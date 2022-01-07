@@ -1,0 +1,38 @@
+---
+- name: Jenkins
+  hosts: jenkins
+  become: yes
+  become_user: root
+  tasks:
+    #- name: Add Jenkins Apt signing key
+    #  apt_key:
+    #    url: https://pkg.jenkins.io/debian-stable/jenkins.io.key
+    #    state: present
+    - name: Add an Jenkins apt key by id from a keyserver
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: FCEF32E745F2C3D5
+    - name: Add Jenkins repository into sources list
+      apt_repository:
+        repo: deb https://pkg.jenkins.io/debian-stable binary/
+        state: present
+    - name: Install Jenkins
+      apt:
+        name: 
+          - openjdk-8-jre-headless
+          - jenkins
+          - docker.io
+          - docker-compose
+        state: present
+
+- name: Docker
+  hosts: worker
+  become: yes
+  become_user: root
+  tasks:
+    - name: Install Docker
+      apt:
+        name: 
+          - docker.io
+          - docker-compose
+        state: present
