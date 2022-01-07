@@ -1,4 +1,4 @@
-FROM python:3.9.9-slim-buster
+FROM dockerhub.ir/python:3.9.9-slim-buster
 
 WORKDIR /var/www/
 RUN chown -R www-data: /var/www
