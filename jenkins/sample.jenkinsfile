@@ -8,7 +8,7 @@ pipeline {
                     withCredentials([sshUserPrivateKey(credentialsId: 'deployer', keyFileVariable: 'identity', passphraseVariable: '', usernameVariable: 'jenkins')]) {
                       def remote = [:]
                       remote.name = "prod"
-                      remote.host = "192.168.0.11"
+                      remote.host = "192.168.0.12"
                       remote.user = jenkins
                       remote.identityFile = identity
                       remote.allowAnyHosts = true
